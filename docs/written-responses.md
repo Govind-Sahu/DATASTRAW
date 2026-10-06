@@ -20,10 +20,7 @@ I would track cost per conversation and per resolved conversation alongside late
 
 ### 1. Leadership
 
-**Personalize this answer with one truthful path.**
-
-- If you have led or mentored someone: “I supported [number] [role/experience level] teammate(s) for [duration]. I was responsible for [specific work: onboarding, reviews, pairing, planning or unblockers]. The hardest part was [real challenge]. I handled it by [specific action] and learned [lesson].”
-- If you have not formally led someone: “I have not formally managed a teammate. One situation where I helped someone less experienced was [real situation]. I [specific action], and the result was [observable result]. It taught me [lesson about support or communication].”
+I help junior teammates with technical problem solving. To make this answer specific, I still need one real example: what problem the teammate was solving, what help I gave, and what happened afterward. I should describe my role accurately and not imply that I formally managed the teammate if I did not.
 
 ### 2. Giving feedback
 
@@ -35,11 +32,9 @@ I would ask them to explain the risks or evidence behind their view and make sur
 
 ### 4. Mistake and ownership
 
-**Replace this scaffold with a real incident you can discuss. Keep the facts and impact accurate.**
+In one project, I made a mistake while writing a database query for a report. I missed a required condition, so the report returned more records than the business expected. We caught it during testing by comparing the output with the expected business data. I took ownership, reviewed the SQL against the requirement, identified the missing condition and corrected the query. I informed the senior developer about the issue and the fix. Then I tested different data scenarios, including records that should be included and excluded, and compared the results with what we expected.
 
-“I [specific mistake] while working on [system or task]. It affected [person, customer or business outcome] by [concrete impact]. When I realized it, I [immediate mitigation and who you informed]. I then [root-cause fix or recovery], and followed up by [prevention, monitoring, test, documentation or process change]. I learned [specific lesson].”
-
-Do not invent a production outage if the real example was smaller. A contained mistake with clear ownership and learning is stronger than an exaggerated story.
+Because the issue was found before production, its impact remained within testing. Afterward, I became more deliberate about checking report queries against the business requirements, testing edge cases and validating sample results before I considered the work ready for final review. The experience taught me that code can run correctly while still answering the wrong business question. I treat checking the output against the expected business result as part of implementation, and I communicate mistakes early rather than only correcting them quietly.
 
 ### 5. Joining Datastraw: first 30 days
 
@@ -53,6 +48,6 @@ By day 30, I would share a short, prioritized view of what I learned, what shoul
 
 This assessment app and draft materials were built with **Replit Agent** in the Replit workspace. It helped interpret the assignment, implement the UI and server, and draft technical documentation. I reviewed the generated code and tested the core flows rather than treating generated output as verified.
 
-One incorrect suggestion was an HTTP error-handler method that called itself recursively. I spotted it while reviewing the server implementation and removed it before running the app. I also chose a standard-library implementation after the project package installer failed, rather than adding a dependency that I could not install and verify.
+During development, Replit Agent introduced an HTTP error-handler method that called itself recursively. That method was removed before the final app run and tests. The project's package installer also failed before dependencies could be installed, so the app was implemented with the Python standard library instead of adding an unverified dependency.
 
 Before submitting, I will make sure I can explain the retrieval trade-off, how the app scopes policy lookup to a brand, what the demo mode does, and what I would change for production.
