@@ -20,7 +20,7 @@ I would track cost per conversation and per resolved conversation alongside late
 
 ### 1. Leadership
 
-I help junior teammates with technical problem solving. To make this answer specific, I still need one real example: what problem the teammate was solving, what help I gave, and what happened afterward. I should describe my role accurately and not imply that I formally managed the teammate if I did not.
+Supporting junior teammates with technical problem solving is one way I contribute to a team. In one project, a junior teammate was working on a SQL query for a report, but a required condition was missing, so the results included more records than the business expected. I reviewed the query with them and explained how each condition affected which records appeared. Rather than only handing over corrected SQL, I helped break the query down and compare the expected records with the business requirement. We tested it with different sample cases, including records that should be included and excluded. Once the teammate understood the issue, they made the correction and completed the report successfully. The outcome was not only a corrected report: the teammate also saw a practical way to verify a query's results. I learned that useful mentoring means explaining the reasoning behind a fix and giving the other person a method to apply, instead of simply supplying the answer. This experience also reinforced that a query can run without errors and still be wrong for the business; it needs to be checked across relevant scenarios.
 
 ### 2. Giving feedback
 
