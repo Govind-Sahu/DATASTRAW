@@ -1,0 +1,44 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "JZJIJB03rfwTQLvrQWZzk"
+uri = "file://docs/architecture-diagram.svg"
+type = "image"
+title = "CX Platform Architecture Diagram"
+description = "The scalable multi-brand architecture diagram for Part 2 of the Datastraw assessment."
+logical_id = "8ae99c39-2faf-4960-9909-30731a0b539b"
+content_hash = "sha256:2f8ba3c446c849292c053dbee32ed574e73fb569c8dc347d69f79752d026e408"
+size = 8241
+mtime_ms = 1791261556564
+storage_uri = "gcs://replit-rams-assets-pike/rams/assets/repl:d9cec775-c3fb-49a9-8a3e-0027ba7e4717/8ae99c39-2faf-4960-9909-30731a0b539b/f9fe1c0e-7772-4a1c-b855-33e03f3b1591"
+storage_version_token = "1791262071563472"
+content_type = "image/svg+xml"
+
+[[outputs]]
+id = "cpfdrmQ8YJELCei3ds1WV"
+uri = "file://docs/architecture.docx"
+type = "word_document"
+title = "Architecture Document"
+description = "Part 2 system design explanation, sized for the assessment's 2–3 page limit."
+logical_id = "0c0f5820-ada4-4ca5-80dd-c7e8fa3595ed"
+content_hash = "sha256:9cab6762b92f927b3ad5dc2a86451cbbe25f951b93930f789afa9016c322d148"
+size = 5168
+mtime_ms = 1791261945256
+storage_uri = "gcs://replit-rams-assets-pike/rams/assets/repl:d9cec775-c3fb-49a9-8a3e-0027ba7e4717/0c0f5820-ada4-4ca5-80dd-c7e8fa3595ed/5c48594a-e3da-4faa-afe5-6c248e399044"
+storage_version_token = "1791262072862346"
+content_type = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+
+[[outputs]]
+id = "9ZnEL5bmUVQ3tifizlRBk"
+uri = "file://docs/written-responses.docx"
+type = "word_document"
+title = "Written Responses Draft"
+description = "Word document for Parts 3 and 4. Personal leadership and mistake answers are marked for truthful completion."
+logical_id = "99ffd7d8-6bac-48b0-999e-34c3f0c80e79"
+content_hash = "sha256:e972dff9c18f1414bc0c4bd0581e99c773cfd833eda073ad8a7d3c8db7f96adf"
+size = 5623
+mtime_ms = 1791261945244
+storage_uri = "gcs://replit-rams-assets-pike/rams/assets/repl:d9cec775-c3fb-49a9-8a3e-0027ba7e4717/99ffd7d8-6bac-48b0-999e-34c3f0c80e79/76dcafd1-5306-4a58-8e45-794d24154f3a"
+storage_version_token = "1791262074130092"
+content_type = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"

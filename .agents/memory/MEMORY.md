@@ -1,0 +1,1 @@
+- [Legacy package installer issue](legacy-package-installer.md) — this Python template's Poetry-based install callback failed; prefer the standard library unless the toolchain is repaired.

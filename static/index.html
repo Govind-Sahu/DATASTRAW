@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f4f6f2">
+    <meta name="description" content="A brand-grounded customer support reply assistant demo.">
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+    <title>Reply Desk — Datastraw CX Assistant</title>
+    <link rel="stylesheet" href="/static/app.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand-lockup" href="/" aria-label="Reply Desk home">
+          <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+          <span class="brand-wordmark">reply<span>desk</span></span>
+        </a>
+        <div class="topbar-center"><span class="workspace-dot"></span> Datastraw demo workspace</div>
+        <div class="topbar-right">
+          <span id="modeBadge" class="mode-badge"><span class="status-dot"></span><span id="modeBadgeLabel">Demo mode</span></span>
+          <button id="helpButton" class="icon-button" type="button" aria-label="About this demo" title="About this demo">?</button>
+          <div class="user-chip"><span class="user-avatar">C</span><span>Candidate</span></div>
+        </div>
+      </header>
+
+      <div class="workspace">
+        <aside class="sidebar">
+          <div class="sidebar-heading">
+            <div>
+              <span class="eyebrow">WORKSPACE</span>
+              <h1>Inbox</h1>
+            </div>
+            <button id="newConversationHint" class="icon-button subtle" type="button" title="Demo conversations">+</button>
+          </div>
+          <label class="field-label" for="brandFilter">Brand</label>
+          <div class="select-wrap">
+            <span class="select-brand-dot"></span>
+            <select id="brandFilter" aria-label="Filter conversations by brand"></select>
+            <span class="select-chevron" aria-hidden="true">⌄</span>
+          </div>
+          <div class="inbox-count-row">
+            <span>Open conversations</span>
+            <span id="conversationCount" class="count-pill">0</span>
+          </div>
+          <div id="conversationList" class="conversation-list" aria-live="polite"></div>
+          <div class="sidebar-bottom">
+            <div class="sidebar-note-icon">✦</div>
+            <div><strong>Grounded in your policies</strong><p>Replies only use this brand’s saved knowledge.</p></div>
+          </div>
+        </aside>
+
+        <main class="main-area">
+          <nav class="page-tabs" aria-label="Main navigation">
+            <button class="page-tab active" data-page="inbox" type="button"><span class="tab-icon">▤</span> Inbox</button>
+            <button class="page-tab" data-page="knowledge" type="button"><span class="tab-icon">◈</span> Knowledge base <span id="kbNavCount" class="nav-count">0</span></button>
+            <button class="page-tab" data-page="activity" type="button"><span class="tab-icon">◷</span> AI activity</button>
+            <span class="tabs-spacer"></span>
+            <span class="privacy-label"><span class="privacy-lock">⌑</span> Private demo data</span>
+          </nav>
+
+          <section id="inboxPage" class="page-content inbox-page">
+            <div id="emptyState" class="empty-state">
+              <div class="empty-illustration"><span>✉</span></div>
+              <h2>Choose a conversation</h2>
+              <p>Select a conversation from the inbox to review the order and draft a reply.</p>
+            </div>
+            <div id="conversationView" class="conversation-layout hidden">
+              <section class="conversation-column">
+                <div class="conversation-header">
+                  <div class="customer-identity">
+                    <div id="customerAvatar" class="customer-avatar">M</div>
+                    <div><div class="customer-title-line"><h2 id="customerName">Customer</h2><span class="channel-badge">Email</span></div><p id="customerMeta">Customer details</p></div>
+                  </div>
+                  <div class="conversation-header-actions">
+                    <span class="status-label"><span class="status-dot green"></span> Open</span>
+                    <button class="icon-button subtle" type="button" title="More options" aria-label="More options">···</button>
+                  </div>
+                </div>
+                <div id="orderSummary" class="order-summary"></div>
+                <div class="thread-label"><span>CONVERSATION</span><span id="threadBrand"></span></div>
+                <div id="thread" class="thread" aria-live="polite"></div>
+                <div class="composer-area">
+                  <div class="composer-top">
+                    <span>Send as</span>
+                    <div class="side-toggle" role="group" aria-label="Choose who is sending the next message">
+                      <button id="agentModeButton" class="side-option active" type="button">Agent</button>
+                      <button id="customerModeButton" class="side-option" type="button">Customer</button>
+                    </div>
+                    <span id="composerHint" class="composer-hint">Replying to customer</span>
+                  </div>
+                  <form id="messageForm" class="message-form">
+                    <textarea id="messageInput" rows="2" maxlength="4000" placeholder="Write a manual reply…" aria-label="Message to send"></textarea>
+                    <div class="composer-actions">
+                      <span id="messageError" class="form-error" role="alert"></span>
+                      <button class="send-button" type="submit"><span id="sendButtonLabel">Send reply</span><span aria-hidden="true">↗</span></button>
+                    </div>
+                  </form>
+                </div>
+              </section>
+
+              <aside id="assistantPanel" class="assistant-panel">
+                <div class="assistant-panel-heading">
+                  <div class="assistant-title-icon">✳</div>
+                  <div><span class="eyebrow">REPLY ASSISTANT</span><h2>Suggested reply</h2></div>
+                  <span class="beta-tag">AI</span>
+                </div>
+                <p class="assistant-intro">Generate a brand-specific draft grounded in the latest customer message and saved policies.</p>
+                <button id="generateButton" class="generate-button" type="button"><span class="sparkle">✦</span><span>Generate reply</span><span class="button-arrow">→</span></button>
+                <div id="generationError" class="error-callout hidden" role="alert"></div>
+                <div id="draftArea" class="draft-area hidden">
+                  <div class="draft-meta">
+                    <span id="confidenceBadge" class="confidence-badge">Grounded</span>
+                    <button id="regenerateButton" class="text-button" type="button">↻ Regenerate</button>
+                  </div>
+                  <label class="field-label" for="draftText">EDIT YOUR REPLY</label>
+                  <textarea id="draftText" class="draft-text" rows="8" maxlength="4000"></textarea>
+                  <div class="draft-actions">
+                    <button id="saveEditButton" class="secondary-button" type="button">Save edit</button>
+                    <button id="approveButton" class="approve-button" type="button">Approve &amp; send <span>↗</span></button>
+                  </div>
+                  <div id="editStatus" class="edit-status" aria-live="polite"></div>
+                  <div id="agentNotice" class="agent-notice"></div>
+                  <div class="context-section">
+                    <div class="context-heading"><span>RETRIEVED CONTEXT</span><span id="contextCount" class="context-count">0</span></div>
+                    <div id="contextList" class="context-list"></div>
+                  </div>
+                  <div id="providerLine" class="provider-line"></div>
+                </div>
+                <div id="assistantEmpty" class="assistant-empty">
+                  <div class="empty-spark">✦</div>
+                  <strong>Your draft will appear here</strong>
+                  <span>Check the retrieved policies before approving a reply.</span>
+                </div>
+                <div class="guardrail-footnote"><span>⌑</span> Always review AI suggestions before sending.</div>
+              </aside>
+            </div>
+          </section>
+
+          <section id="knowledgePage" class="page-content knowledge-page hidden">
+            <div class="page-heading">
+              <div><span class="eyebrow">BRAND POLICIES</span><h2>Knowledge base</h2><p>Manage the information the assistant can use when drafting replies.</p></div>
+              <button id="addPolicyButton" class="primary-button" type="button"><span>＋</span> Add policy</button>
+            </div>
+            <div class="kb-toolbar">
+              <div><span class="field-label">EDITING POLICIES FOR</span><div class="select-wrap kb-select-wrap"><select id="kbBrandSelect" aria-label="Choose a brand for policy management"></select><span class="select-chevron">⌄</span></div></div>
+              <div id="kbPolicyCount" class="kb-policy-count">0 policies</div>
+            </div>
+            <div id="policyEditor" class="policy-editor hidden">
+              <div class="editor-title-row"><h3 id="policyFormTitle">New policy</h3><button id="cancelPolicyButton" class="icon-button subtle" type="button" aria-label="Close policy form">×</button></div>
+              <form id="policyForm">
+                <input id="policyId" type="hidden">
+                <div class="form-grid">
+                  <label><span class="field-label">CATEGORY</span><input id="policyCategory" list="categoryOptions" maxlength="80" required placeholder="e.g. damaged_items"><datalist id="categoryOptions"><option value="returns"><option value="refunds"><option value="shipping"><option value="cancellations"><option value="damaged_items"></datalist></label>
+                  <label><span class="field-label">DISPLAY NAME</span><input id="policyTitle" maxlength="120" required placeholder="e.g. Damaged items"></label>
+                </div>
+                <label class="policy-content-label"><span class="field-label">POLICY TEXT</span><textarea id="policyContent" rows="4" maxlength="5000" required placeholder="Write the exact policy the assistant should follow…"></textarea></label>
+                <div class="editor-actions"><span id="policyError" class="form-error" role="alert"></span><button id="savePolicyButton" class="approve-button" type="submit">Save policy</button></div>
+              </form>
+            </div>
+            <div id="policyList" class="policy-list"></div>
+            <div class="kb-tip"><span>✦</span><div><strong>Keep policies specific</strong><p>Short, factual entries are easier to retrieve and reduce the chance of an unsupported promise.</p></div></div>
+          </section>
+
+          <section id="activityPage" class="page-content activity-page hidden">
+            <div class="page-heading">
+              <div><span class="eyebrow">AUDIT TRAIL</span><h2>AI activity</h2><p>Review the context, generated draft, edits, and final response for each run.</p></div>
+              <button id="refreshActivity" class="secondary-button" type="button">↻ Refresh</button>
+            </div>
+            <div id="activityList" class="activity-list"></div>
+          </section>
+        </main>
+      </div>
+      <div id="toast" class="toast" role="status" aria-live="polite"></div>
+      <dialog id="aboutDialog" class="about-dialog">
+        <div class="dialog-heading"><div class="assistant-title-icon">✳</div><button id="closeAboutButton" class="icon-button subtle" type="button" aria-label="Close">×</button></div>
+        <span class="eyebrow">ASSESSMENT DEMO</span>
+        <h2>Built for grounded support</h2>
+        <p>This app demonstrates brand-scoped knowledge retrieval, reply drafting, agent review, and conversation logging. It starts in local demo mode and uses no external AI credentials by default.</p>
+        <p class="dialog-small">The sample customer and order data are fictional. Add an OpenRouter API key through Replit Secrets to enable live model generation.</p>
+        <button id="closeAboutFooter" class="primary-button" type="button">Got it</button>
+      </dialog>
+    </div>
+    <script src="/static/app.js" defer></script>
+  </body>
+</html>

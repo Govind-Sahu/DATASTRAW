@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 860" role="img" aria-labelledby="title desc">
+  <title id="title">Datastraw scalable CX platform architecture</title>
+  <desc id="desc">Architecture diagram showing support channels, tenant-aware APIs, PostgreSQL, queues, integrations, knowledge retrieval, AI guardrails, and agent console.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0 0L10 5L0 10z" fill="#73867a"/>
+    </marker>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0 0L10 5L0 10z" fill="#4f88a5"/>
+    </marker>
+    <style>
+      .bg{fill:#f6f8f5}.title{font:700 26px 'Arial',sans-serif;fill:#23342a}.subtitle{font:14px 'Arial',sans-serif;fill:#708076}
+      .box{fill:#fff;stroke:#dce6dd;stroke-width:1.5;rx:12}.green{fill:#edf5ee;stroke:#bcd3c0}.blue{fill:#edf5f8;stroke:#c5dce6}.gold{fill:#fff7e8;stroke:#ead6a9}.gray{fill:#f2f4f2;stroke:#dce2dc}
+      .h{font:700 15px 'Arial',sans-serif;fill:#304438}.t{font:12px 'Arial',sans-serif;fill:#637268}.tiny{font:11px 'Arial',sans-serif;fill:#7b887e}
+      .flow{fill:none;stroke:#73867a;stroke-width:2;marker-end:url(#arrow)}.flowBlue{fill:none;stroke:#4f88a5;stroke-width:2;marker-end:url(#arrowBlue)}.dashed{stroke-dasharray:6 5}
+      .label{font:700 10px 'Arial',sans-serif;fill:#8a968d;letter-spacing:1px}.number{font:700 12px 'Arial',sans-serif;fill:#467452}
+    </style>
+  </defs>
+  <rect class="bg" width="1440" height="860"/>
+  <text x="48" y="52" class="title">Scalable CX reply platform</text>
+  <text x="48" y="78" class="subtitle">Tenant-scoped conversation processing, brand knowledge retrieval and human-reviewed AI replies</text>
+
+  <!-- Channels -->
+  <text x="54" y="128" class="label">CUSTOMER CHANNELS</text>
+  <rect x="48" y="146" width="190" height="76" class="box"/>
+  <text x="68" y="176" class="h">WhatsApp</text><text x="68" y="198" class="t">Verified webhook adapter</text>
+  <rect x="48" y="238" width="190" height="76" class="box"/>
+  <text x="68" y="268" class="h">Email / web chat</text><text x="68" y="290" class="t">Channel adapters</text>
+  <rect x="48" y="330" width="190" height="76" class="box"/>
+  <text x="68" y="360" class="h">Commerce APIs</text><text x="68" y="382" class="t">Order lookup / events</text>
+
+  <!-- Ingress and tenant boundary -->
+  <text x="286" y="128" class="label">TRUSTED APPLICATION BOUNDARY</text>
+  <rect x="278" y="146" width="220" height="96" class="box blue"/>
+  <text x="300" y="176" class="h">API gateway</text>
+  <text x="300" y="198" class="t">Rate limits · signature checks</text>
+  <text x="300" y="217" class="t">OIDC token validation</text>
+  <rect x="278" y="270" width="220" height="112" class="box green"/>
+  <text x="300" y="300" class="h">Tenant resolver</text>
+  <text x="300" y="322" class="t">User ↔ brand membership</text>
+  <text x="300" y="341" class="t">Server-derived brand_id</text>
+  <text x="300" y="360" class="tiny">Reject missing / unauthorized scope</text>
+
+  <!-- Core API -->
+  <rect x="548" y="146" width="220" height="108" class="box"/>
+  <text x="570" y="176" class="h">Conversation API</text>
+  <text x="570" y="198" class="t">Messages · customers · orders</text>
+  <text x="570" y="217" class="t">Manual send · agent review</text>
+  <rect x="548" y="282" width="220" height="104" class="box green"/>
+  <text x="570" y="312" class="h">Knowledge service</text>
+  <text x="570" y="334" class="t">CRUD · version · locale</text>
+  <text x="570" y="353" class="t">Brand-filtered retrieval</text>
+  <rect x="548" y="414" width="220" height="104" class="box gold"/>
+  <text x="570" y="444" class="h">AI gateway</text>
+  <text x="570" y="466" class="t">Prompt / model routing</text>
+  <text x="570" y="485" class="t">Budget · validate · fallback</text>
+
+  <!-- Data layer -->
+  <text x="834" y="128" class="label">TENANT-SCOPED DATA</text>
+  <rect x="824" y="146" width="236" height="136" class="box blue"/>
+  <text x="846" y="176" class="h">PostgreSQL</text>
+  <text x="846" y="199" class="t">RLS + brand-scoped repository</text>
+  <text x="846" y="220" class="t">Customers · orders · conversations</text>
+  <text x="846" y="241" class="t">Policies · audit · outbox</text>
+  <text x="846" y="263" class="tiny">Composite keys / tenant indexes</text>
+  <rect x="824" y="309" width="236" height="104" class="box green"/>
+  <text x="846" y="339" class="h">Qdrant (when needed)</text>
+  <text x="846" y="361" class="t">Policy embeddings / hybrid search</text>
+  <text x="846" y="382" class="t">Mandatory brand_id filter</text>
+  <rect x="824" y="440" width="236" height="88" class="box gray"/>
+  <text x="846" y="470" class="h">Redis</text>
+  <text x="846" y="492" class="t">Short-lived cache · rate limits</text>
+  <text x="846" y="511" class="tiny">Keys include brand + policy version</text>
+
+  <!-- Queues and integrations -->
+  <text x="1120" y="128" class="label">ASYNC WORK &amp; PROVIDERS</text>
+  <rect x="1110" y="146" width="270" height="106" class="box gold"/>
+  <text x="1132" y="176" class="h">Durable queue + outbox</text>
+  <text x="1132" y="198" class="t">Idempotent events · retry / DLQ</text>
+  <text x="1132" y="218" class="t">Queue age autoscaling</text>
+  <rect x="1110" y="279" width="270" height="96" class="box"/>
+  <text x="1132" y="309" class="h">Background workers</text>
+  <text x="1132" y="331" class="t">Webhook · order enrichment</text>
+  <text x="1132" y="350" class="t">Indexing · outbound delivery</text>
+  <rect x="1110" y="403" width="270" height="96" class="box blue"/>
+  <text x="1132" y="433" class="h">External services</text>
+  <text x="1132" y="455" class="t">WhatsApp / email · commerce</text>
+  <text x="1132" y="474" class="t">LLM provider (budgeted)</text>
+
+  <!-- Agent experience -->
+  <rect x="278" y="580" width="290" height="104" class="box green"/>
+  <text x="302" y="612" class="h">Agent console · React</text>
+  <text x="302" y="635" class="t">Conversation · order context · policy</text>
+  <text x="302" y="656" class="t">Edit · approve · manual reply</text>
+  <rect x="618" y="580" width="338" height="104" class="box"/>
+  <text x="642" y="612" class="h">Safety + audit</text>
+  <text x="642" y="635" class="t">Retrieved citations · claim checks</text>
+  <text x="642" y="656" class="t">Prompt/model version · final outcome</text>
+  <rect x="1006" y="580" width="374" height="104" class="box gray"/>
+  <text x="1030" y="612" class="h">Observability + evaluation</text>
+  <text x="1030" y="635" class="t">Cost / tokens · latency · queue lag</text>
+  <text x="1030" y="656" class="t">Tenant isolation · quality regression tests</text>
+
+  <!-- Main request flows -->
+  <path d="M238 184H278" class="flow"/>
+  <path d="M238 276C258 276 252 194 278 194" class="flow"/>
+  <path d="M238 368C263 368 246 222 278 222" class="flow"/>
+  <path d="M498 194H548" class="flow"/>
+  <path d="M498 324C520 324 515 199 548 199" class="flow dashed"/>
+  <path d="M768 197H824" class="flow"/>
+  <path d="M768 334H824" class="flow"/>
+  <path d="M942 282V309" class="flow"/>
+  <path d="M768 464C798 464 790 364 824 364" class="flow"/>
+  <path d="M768 464H1110" class="flowBlue"/>
+  <path d="M1110 327H1060" class="flow dashed"/>
+  <path d="M1245 252V279" class="flow"/>
+  <path d="M1245 375V403" class="flowBlue"/>
+  <path d="M680 518V580" class="flow"/>
+  <path d="M568 632H618" class="flow"/>
+  <path d="M956 632H1006" class="flow dashed"/>
+  <path d="M423 580V468C423 440 500 435 548 435" class="flowBlue"/>
+  <path d="M568 632C732 713 1120 733 1245 499" class="flow dashed"/>
+
+  <!-- Legend and security boundary -->
+  <rect x="48" y="748" width="1332" height="70" rx="10" fill="#fff" stroke="#e0e7e0"/>
+  <text x="72" y="778" class="label">KEY CONTROLS</text>
+  <text x="72" y="800" class="t">Brand scope is resolved at the server and enforced in PostgreSQL RLS, repository queries, Qdrant filters, cache keys, queues and audit records.</text>
+  <path d="M940 784H1000" class="flow"/><text x="1012" y="788" class="tiny">Synchronous request / data flow</text>
+  <path d="M1190 784H1250" class="flowBlue"/><text x="1260" y="788" class="tiny">External provider</text>
+</svg>
