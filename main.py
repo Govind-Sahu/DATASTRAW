@@ -16,6 +16,7 @@ from urllib.parse import parse_qs, unquote, urlparse
 
 ROOT = Path(__file__).resolve().parent
 STATIC = ROOT / "static"
+ASSIGNMENT_ZIP = STATIC / "datastraw-cx-reply-assistant.zip"
 DB_PATH = Path(os.environ.get("CX_DB_PATH", ROOT / "instance" / "cx_assistant.sqlite"))
 
 SEED_BRANDS = [
@@ -420,12 +421,32 @@ class AppHandler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(content)
 
+    def serve_assignment_zip(self) -> None:
+        if not ASSIGNMENT_ZIP.is_file():
+            self.send_error(404, "Assignment ZIP not found")
+            return
+        content = ASSIGNMENT_ZIP.read_bytes()
+        self.send_response(200)
+        self.send_header("Content-Type", "application/zip")
+        self.send_header(
+            "Content-Disposition",
+            'attachment; filename="datastraw-cx-reply-assistant.zip"',
+        )
+        self.send_header("Content-Length", str(len(content)))
+        self.send_header("Cache-Control", "no-store")
+        self.send_header("X-Content-Type-Options", "nosniff")
+        self.end_headers()
+        self.wfile.write(content)
+
     def do_GET(self) -> None:
         parsed = urlparse(self.path)
         path = parsed.path
         query = parse_qs(parsed.query)
         if path == "/":
             self.serve_static("index.html")
+            return
+        if path == "/download/assignment.zip":
+            self.serve_assignment_zip()
             return
         if path.startswith("/static/"):
             self.serve_static(path[len("/static/"):])

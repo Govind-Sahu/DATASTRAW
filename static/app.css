@@ -34,6 +34,8 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
 .topbar-center { color: #68746c; font-size: 12px; display: flex; align-items: center; gap: 8px; position: absolute; left: 50%; transform: translateX(-50%); }
 .workspace-dot, .status-dot { width: 7px; height: 7px; border-radius: 50%; background: #85a88d; display: inline-block; }
 .topbar-right { display: flex; align-items: center; gap: 17px; }
+.project-download { display: inline-flex; align-items: center; justify-content: center; border: 1px solid #dfe8df; border-radius: 8px; padding: 6px 9px; color: #477950; background: #f4f8f4; font-size: 11px; font-weight: 700; text-decoration: none; white-space: nowrap; }
+.project-download:hover { background: #eaf2ea; }
 .mode-badge { border-radius: 20px; padding: 6px 10px; font-size: 11px; color: #886723; background: #fff8e8; display: inline-flex; gap: 6px; align-items: center; }
 .mode-badge .status-dot { width: 6px; height: 6px; background: #d1a748; }
 .mode-badge.live-mode-badge { color: #477753; background: #eef6ef; }
@@ -266,6 +268,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
 @media (max-width: 560px) {
   .topbar { height: 56px; }
   .topbar-right { gap: 8px; }
+  .project-download { font-size: 9px; padding: 5px 7px; }
   .mode-badge { font-size: 9px; padding: 5px 7px; }
   .user-chip { font-size: 0; }
   .user-avatar { font-size: 11px; }

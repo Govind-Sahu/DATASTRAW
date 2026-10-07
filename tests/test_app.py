@@ -1,9 +1,11 @@
+import io
 import json
 import tempfile
 import threading
 import unittest
 import urllib.error
 import urllib.request
+import zipfile
 from http.server import ThreadingHTTPServer
 from pathlib import Path
 
@@ -40,6 +42,21 @@ class ReplyAssistantApiTests(unittest.TestCase):
         )
         with urllib.request.urlopen(request, timeout=5) as response:
             return response.status, json.loads(response.read().decode("utf-8"))
+
+    def test_assignment_zip_downloads_as_attachment(self):
+        request = urllib.request.Request(self.base_url + "/download/assignment.zip")
+        with urllib.request.urlopen(request, timeout=5) as response:
+            self.assertEqual(response.status, 200)
+            self.assertEqual(response.headers.get_content_type(), "application/zip")
+            self.assertIn("attachment;", response.headers.get("Content-Disposition", ""))
+            content = response.read()
+
+        with zipfile.ZipFile(io.BytesIO(content)) as archive:
+            self.assertIsNone(archive.testzip())
+            names = archive.namelist()
+            self.assertIn("datastraw-cx-reply-assistant/README.md", names)
+            self.assertFalse(any(name.endswith("/.env") for name in names))
+            self.assertFalse(any(name.endswith(".sqlite") for name in names))
 
     def test_brand_scoped_retrieval_returns_only_selected_brand_policy(self):
         with app.connect_db() as db:
