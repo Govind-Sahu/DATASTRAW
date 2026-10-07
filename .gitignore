@@ -7,3 +7,4 @@ instance/*.sqlite-wal
 .venv/
 venv/
 .DS_Store
+/deliverables/

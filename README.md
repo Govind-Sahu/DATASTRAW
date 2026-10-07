@@ -11,6 +11,17 @@ A small, runnable support-reply assistant built for the Datastraw hiring assessm
 5. Open **Knowledge base** to add, edit, or delete policy entries for either brand. Regenerate to verify that retrieval changes with the saved policy.
 6. Open **AI activity** to review the customer message, retrieved context, generated draft, edited response, final response, provider and timestamp.
 
+## Run locally
+
+1. Extract the project ZIP and open a terminal in the folder containing `main.py`.
+2. Install Python 3.10 or newer if it is not already installed. No `pip install` is needed; the app uses the Python standard library.
+3. Start the server:
+   - Windows: `py main.py`
+   - macOS/Linux: `python3 main.py`
+4. Open `http://127.0.0.1:5000` in a browser. Press `Ctrl+C` in the terminal to stop the server.
+
+The first run creates `instance/cx_assistant.sqlite` with fictional demo data. Without an OpenRouter key, the app stays in Grounded demo mode.
+
 ## AI provider
 
 The app works immediately in **Grounded demo mode** using a small deterministic, policy-aware draft generator. This is intentional: no model credentials are bundled, and the interface labels this mode rather than claiming a live model was called.

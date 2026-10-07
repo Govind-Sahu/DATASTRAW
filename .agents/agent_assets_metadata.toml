@@ -42,3 +42,17 @@ mtime_ms = 1791263369511
 storage_uri = "gcs://replit-rams-assets-pike/rams/assets/repl:d9cec775-c3fb-49a9-8a3e-0027ba7e4717/99ffd7d8-6bac-48b0-999e-34c3f0c80e79/7bad84c0-6d43-47b3-bcc0-017395874580"
 storage_version_token = "1791263389683912"
 content_type = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+
+[[outputs]]
+id = "7SZod4wXQxbVEyc5BApyz"
+uri = "file://deliverables/download-assignment.html"
+type = "html"
+title = "Download Complete Assignment ZIP"
+description = "Open this page and click Download ZIP. It contains the app, tests, documentation, diagram, and Word responses; secrets and local database are excluded."
+logical_id = "e4f5d703-285d-4e74-af2d-26460d407eab"
+content_hash = "sha256:17b4e7948e2efdd4c7d936e1728ba38637fc30d76102d0f0aeea2acb8c65ab25"
+size = 76400
+mtime_ms = 1791362505312
+storage_uri = "gcs://replit-rams-assets-pike/rams/assets/repl:d9cec775-c3fb-49a9-8a3e-0027ba7e4717/e4f5d703-285d-4e74-af2d-26460d407eab/d59de7f2-b40b-4f7f-891b-785a2cb2f6da"
+storage_version_token = "1791362531403535"
+content_type = "text/html"
