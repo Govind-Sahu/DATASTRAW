@@ -322,7 +322,7 @@ def openrouter_draft(customer_name: str, product: str, latest_message: str, cont
     api_key = os.environ.get("OPENROUTER_API_KEY")
     if not api_key:
         raise RuntimeError("OPENROUTER_API_KEY is not configured")
-    model = os.environ.get("OPENROUTER_MODEL", "openai/gpt-4o-mini")
+    model = os.environ.get("OPENROUTER_MODEL", "nvidia/nemotron-3-ultra-550b-a55b:free")
     payload = {
         "model": model,
         "temperature": 0.2,
@@ -660,7 +660,7 @@ class AppHandler(BaseHTTPRequestHandler):
                         provider = "OpenRouter rejected · grounded fallback"
                     else:
                         generated = model_draft
-                        provider = os.environ.get("OPENROUTER_MODEL", "openai/gpt-4o-mini") + " via OpenRouter"
+                        provider = os.environ.get("OPENROUTER_MODEL", "nvidia/nemotron-3-ultra-550b-a55b:free") + " via OpenRouter"
                 except RuntimeError as exc:
                     cursor = db.execute(
                         """INSERT INTO reply_runs
